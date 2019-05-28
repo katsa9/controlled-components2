@@ -3,12 +3,18 @@ import PropTypes from 'prop-types';
 
 class AddItem extends Component {
     static propTypes = {
-        onAdd: PropTypes.func.isRequired
+        onAddItem: PropTypes.func.isRequired
     }
 
     state = {
         value: ''
     }
+
+    addItem = event => {
+        event.preventDefault();
+        console.log("before callback", this.state.value);
+        this.props.onAddItem(this.state.value); //callback for parent comp
+    };
 
     handleChange = event => {
         this.setState({ value: event.target.value });
@@ -20,14 +26,14 @@ class AddItem extends Component {
 
     render() {
         return (
-            <form onSubmit={this.props.onAdd}>
+            <form onSubmit={this.addItem}>
                 <input
                     type="text"
                     placeholder="Enter New Item"
                     value={this.state.value}
                     onChange={this.handleChange}
                 />
-                <button type="submit" disabled={this.inputIsEmpty()}>Add</button>
+                <button disabled={this.inputIsEmpty()}>Add</button>
             </form>
         );
     }

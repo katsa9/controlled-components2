@@ -2,22 +2,20 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import DeleteItem from './DeleteItem.js';
-import AddItem from './PossibleSolution/AddItem';
+import AddItem from './AddItem';
 import ShoppingList from './ShoppingList';
 
 
 class App extends React.Component {
   state = {
-    // value: '',
     items: []
   };
 
-  addItem = event => {
-    event.preventDefault();
+  handleAddItem = item => (
     this.setState(oldState => ({
-      items: [...oldState.items, this.state.value],
-    }));
-  };
+      items: [...oldState.items, item]
+    }))
+  );
 
   deleteLastItem = event => {
     this.setState(prevState => ({ items: this.state.items.slice(0, -1) })); //-1 means offset from end of string (ie the last element)
@@ -36,7 +34,7 @@ class App extends React.Component {
         </header>
         <h2>Shopping List</h2>
         <AddItem 
-        onAdd={this.addItem}
+        onAddItem={this.handleAddItem}
         />
         <DeleteItem 
         deleteLast={this.deleteLastItem}
